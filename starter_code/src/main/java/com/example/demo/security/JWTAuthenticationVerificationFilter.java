@@ -1,9 +1,7 @@
-package com.example.demo.model.security;
-
+package com.example.demo.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.example.demo.model.security.SecurityConstants.*;
+import static com.example.demo.security.SecurityConstants.HEADER_STRING;
+import static com.example.demo.security.SecurityConstants.SECRET;
+import static com.example.demo.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilter {
 
@@ -37,35 +37,24 @@ public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilt
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
-        if (authentication != null) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
+
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
-            // Remove the 'Bearer ' prefix from the token
-            token = token.replace(TOKEN_PREFIX, "");
-            try {
-                // Parse the token and extract the user information
-                String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                        .build()
-                        .verify(token)
-                        .getSubject();
-                if (user != null) {
-                    // Create and return an authentication token
-                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-                }
-            } catch (JWTVerificationException e) {
-                // Token verification failed; you can log or handle the error here
-                // For example, you can return null to indicate authentication failure
-                // or throw a custom exception
-                // logger.error("Token verification failed: " + e.getMessage());
+            // parse the token.
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token.replace(TOKEN_PREFIX, ""))
+                    .getSubject();
+
+            if (user != null) {
+                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
+            return null;
         }
-        // If no valid token is found, return null
         return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo.model.security;
+package com.example.demo.security;
 
 import com.auth0.jwt.JWT;
 import com.example.demo.model.requests.CreateUserRequest;
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,8 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static com.example.demo.model.security.SecurityConstants.*;
-
+import static com.example.demo.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
@@ -33,16 +33,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
             CreateUserRequest createUserRequest = new ObjectMapper().readValue(req.getInputStream(), CreateUserRequest.class);
-
-            // Create an authentication token with the user's credentials
-            UsernamePasswordAuthenticationToken authenticationToken =
+            return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             createUserRequest.getUsername(),
                             createUserRequest.getPassword(),
-                            new ArrayList<>()
-                    );
-            // Authenticate the user
-            return authenticationManager.authenticate(authenticationToken);
+                            new ArrayList<>())
+            );
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -54,15 +50,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) {
 
-        // Generate a JWT token
-        String token = generateJwtToken((User) auth.getPrincipal());
-        // Add the token to the response header
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-    }
-    private String generateJwtToken(User user) {
-        return JWT.create()
-                .withSubject(user.getUsername())
+        String token = JWT.create()
+                .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
+        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 }

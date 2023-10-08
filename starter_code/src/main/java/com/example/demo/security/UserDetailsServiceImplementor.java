@@ -1,4 +1,4 @@
-package com.example.demo.model.security;
+package com.example.demo.security;
 
 import com.example.demo.model.persistence.repositories.UserRepository;
 import org.springframework.security.core.userdetails.User;
@@ -19,17 +19,10 @@ public class UserDetailsServiceImplementor implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Retrieve the user from the repository by username
         com.example.demo.model.persistence.User applicationUser = applicationUserRepository.findByUsername(username);
-        // If the user is not found, throw an exception
         if (applicationUser == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException(username);
         }
-        // Create and return a UserDetails object with the user's information
-        return new org.springframework.security.core.userdetails.User(
-                applicationUser.getUsername(),
-                applicationUser.getPassword(),
-                emptyList()
-        );
+        return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
     }
 }

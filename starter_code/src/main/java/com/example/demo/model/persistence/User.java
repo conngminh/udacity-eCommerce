@@ -23,22 +23,22 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonProperty
 	private long id;
-
+	
 	@Column(nullable = false, unique = true)
 	@JsonProperty
 	private String username;
-
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cart_id", referencedColumnName = "id")
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
 	@JsonIgnore
-	private Cart cart;
+    private Cart cart;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false)
 	private String password;
 
 	String salt = KeyGenerators.string().generateKey(); // generates a random 8-byte salt that is then hex-encoded
-
+	
 	public Cart getCart() {
 		return cart;
 	}

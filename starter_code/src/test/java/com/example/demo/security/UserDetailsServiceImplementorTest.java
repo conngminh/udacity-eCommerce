@@ -2,7 +2,6 @@ package com.example.demo.security;
 
 import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.repositories.UserRepository;
-import com.example.demo.model.security.UserDetailsServiceImplementor;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.GrantedAuthority;
