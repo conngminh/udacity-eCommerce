@@ -38,7 +38,7 @@ public class OrderControllerTest {
         user.setUsername(username);
         user.setPassword("password");
         user.setId(0L);
-        Item item = TestUtils.getItem0();
+        Item item = com.example.demo.controllers.TestUtils.getItem0();
         Cart cart = new Cart();
         cart.setId(0L);
         List<Item> itemList = new ArrayList<>();
@@ -67,7 +67,7 @@ public class OrderControllerTest {
         user.setUsername(username);
         user.setPassword("password");
         user.setId(0L);
-        Item item = TestUtils.getItem0();
+        Item item = com.example.demo.controllers.TestUtils.getItem0();
         Cart cart = new Cart();
         cart.setId(0L);
         List<Item> itemList = new ArrayList<>();
@@ -91,7 +91,7 @@ public class OrderControllerTest {
         user.setUsername(username);
         user.setPassword("password");
         user.setId(0L);
-        Item item = TestUtils.getItem0();
+        Item item = com.example.demo.controllers.TestUtils.getItem0();
         Cart cart = new Cart();
         cart.setId(0L);
         List<Item> itemList = new ArrayList<>();
@@ -120,7 +120,7 @@ public class OrderControllerTest {
         user.setUsername(username);
         user.setPassword("password");
         user.setId(0L);
-        Item item = TestUtils.getItem0();
+        Item item = com.example.demo.controllers.TestUtils.getItem0();
         Cart cart = new Cart();
         cart.setId(0L);
         List<Item> itemList = new ArrayList<>();
