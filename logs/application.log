@@ -1,0 +1,11 @@
+2023-10-08T19:54:18.926+0700 INFO Starting SareetaApplication on minhlc.local with PID 11661 (/Users/macbook/Downloads/nd035-c4-Security-and-DevOps-master/starter_code/target/classes started by macbook in /Users/macbook/Downloads/nd035-c4-Security-and-DevOps-master)
+2023-10-08T19:54:18.929+0700 DEBUG Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2023-10-08T19:54:18.930+0700 INFO No active profile set, falling back to default profiles: default
+2023-10-08T19:54:46.096+0700 INFO Starting SareetaApplication on minhlc.local with PID 11770 (/Users/macbook/Downloads/nd035-c4-Security-and-DevOps-master/starter_code/target/classes started by macbook in /Users/macbook/Downloads/nd035-c4-Security-and-DevOps-master)
+2023-10-08T19:54:46.100+0700 DEBUG Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2023-10-08T19:54:46.100+0700 INFO No active profile set, falling back to default profiles: default
+2023-10-08T19:54:47.530+0700 INFO Started SareetaApplication in 1.555 seconds (JVM running for 2.001)
+2023-10-08T19:59:54.884+0700 INFO Starting SareetaApplication on minhlc.local with PID 13038 (/Users/macbook/Downloads/nd035-c4-Security-and-DevOps-master/starter_code/target/classes started by macbook in /Users/macbook/Downloads/nd035-c4-Security-and-DevOps-master)
+2023-10-08T19:59:54.888+0700 DEBUG Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2023-10-08T19:59:54.888+0700 INFO No active profile set, falling back to default profiles: default
+2023-10-08T19:59:56.225+0700 INFO Started SareetaApplication in 1.454 seconds (JVM running for 1.896)
